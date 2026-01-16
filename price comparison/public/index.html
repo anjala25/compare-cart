@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Compare | BuyHatke Vibe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Buy<span>Compare</span></a>
+            <div class="d-flex align-items-center">
+                <a href="#" class="nav-link d-none d-md-block">Hot Deals</a>
+                <a href="#" class="nav-link d-none d-md-block">Price Alert</a>
+                <button class="btn btn-login ms-3">Login</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section text-center">
+        <div class="container">
+            <h1 class="hero-title">Find Real Deals, <br><span>Skip the Fake Ones</span></h1>
+            <p class="hero-subtitle">Track genuine price drops and compare across 100+ stores.</p>
+            
+            <div class="search-container mx-auto">
+                <i class="fa fa-search search-icon"></i>
+                <input type="text" placeholder="Search for products (e.g. iPhone 15 Pro)..." id="productSearch">
+                <button class="btn btn-primary-custom">Search</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="filter-card">
+                    <h5>Comparison Tool</h5>
+                    <p class="text-muted small">Select products to see side-by-side specs and price history.</p>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Product 1</label>
+                        <select class="form-select-custom" id="select1" onchange="updateView(1, this.value)">
+                            <option value="0">-- Select Product --</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Product 2</label>
+                        <select class="form-select-custom" id="select2" onchange="updateView(2, this.value)">
+                            <option value="0">-- Select Product --</option>
+                        </select>
+                    </div>
+                    
+                    <div class="alert alert-info border-0 py-2 small mt-4">
+                        <i class="fa fa-circle-info me-2"></i> Our deal scanner verified these prices 2 mins ago.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="product-compare-card text-center" id="card1">
+                            <div class="image-wrapper">
+                                <img src="https://via.placeholder.com/200x200?text=Select+Product" id="img1" alt="Product 1">
+                            </div>
+                            <div class="p-3">
+                                <h6 class="product-brand" id="brand1">Brand</h6>
+                                <h5 class="product-name" id="name1">Product Name</h5>
+                                <div class="price-section mt-3">
+                                    <span class="current-price" id="price1">₹0</span>
+                                    <span class="badge badge-deal" id="drop1">0% Off</span>
+                                </div>
+                                <button class="btn btn-outline-primary w-100 mt-4">View History</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="product-compare-card text-center" id="card2">
+                            <div class="image-wrapper">
+                                <img src="https://via.placeholder.com/200x200?text=Select+Product" id="img2" alt="Product 2">
+                            </div>
+                            <div class="p-3">
+                                <h6 class="product-brand" id="brand2">Brand</h6>
+                                <h5 class="product-name" id="name2">Product Name</h5>
+                                <div class="price-section mt-3">
+                                    <span class="current-price" id="price2">₹0</span>
+                                    <span class="badge badge-deal" id="drop2">0% Off</span>
+                                </div>
+                                <button class="btn btn-outline-primary w-100 mt-4">View History</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="data.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
