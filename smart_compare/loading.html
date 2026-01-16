@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading... | PriceWise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .loading-container {
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        
+        .logo-text h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 30%, #3b82f6 100%);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+        
+        .logo-text p {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .loader {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 40px;
+        }
+        
+        .coin-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            transform-style: preserve-3d;
+            animation: spinCoin 3s infinite linear;
+        }
+        
+        .coin-front, .coin-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: white;
+            backface-visibility: hidden;
+        }
+        
+        .coin-front {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+        
+        .coin-back {
+            background: linear-gradient(135deg, #10b981 0%, #22c55e 100%);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            transform: rotateY(180deg);
+        }
+        
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 160px;
+            height: 160px;
+            border: 3px solid rgba(37, 99, 235, 0.3);
+            border-radius: 50%;
+            animation: pulseRing 2s infinite;
+        }
+        
+        .pulse-ring:nth-child(2) {
+            width: 190px;
+            height: 190px;
+            animation-delay: 0.5s;
+        }
+        
+        .pulse-ring:nth-child(3) {
+            width: 220px;
+            height: 220px;
+            animation-delay: 1s;
+        }
+        
+        .loading-content {
+            margin-bottom: 40px;
+        }
+        
+        .loading-content h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff 0%, #818cf8 100%);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        #loadingMessage {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            min-height: 24px;
+        }
+        
+        .progress-container {
+            background: rgba(255, 255, 255, 0.1);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb, #06b6d4);
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: 30px;
+        }
+        
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+        }
+        
+        .step {
+            background: #0f172a;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #64748b;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .step.active {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+        
+        .step.complete {
+            background: #10b981;
+            color: white;
+        }
+        
+        .loading-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .loading-stat {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        .loading-stat:nth-child(1) { animation-delay: 0.2s; }
+        .loading-stat:nth-child(2) { animation-delay: 0.4s; }
+        .loading-stat:nth-child(3) { animation-delay: 0.6s; }
+        
+        .loading-stat i {
+            font-size: 1.5rem;
+            color: #2563eb;
+        }
+        
+        .loading-stat span {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+        
+        .tips {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border-left: 4px solid #f59e0b;
+        }
+        
+        .tips h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: #f59e0b;
+        }
+        
+        .tips p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes spinCoin {
+            0% { transform: translate(-50%, -50%) rotateY(0deg); }
+            100% { transform: translate(-50%, -50%) rotateY(360deg); }
+        }
+        
+        @keyframes pulseRing {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .loading-container {
+                padding: 20px;
+            }
+            
+            .logo {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-text h1 {
+                font-size: 2rem;
+            }
+            
+            .loader {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .coin-spinner {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .loading-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="loading-container">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-balance-scale"></i>
+            </div>
+            <div class="logo-text">
+                <h1>PriceWise</h1>
+                <p>Smart Price & Quality Comparison</p>
+            </div>
+        </div>
+        
+        <div class="loader">
+            <div class="coin-spinner">
+                <div class="coin-front">
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
+                <div class="coin-back">
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+        </div>
+        
+        <div class="loading-content">
+            <h2>Finding the Best Prices</h2>
+            <p id="loadingMessage">Initializing price comparison engine...</p>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            
+            <div class="progress-steps">
+                <div class="step active" id="step1">Searching</div>
+                <div class="step" id="step2">Comparing</div>
+                <div class="step" id="step3">Analyzing</div>
+                <div class="step" id="step4">Ranking</div>
+            </div>
+        </div>
+        
+        <div class="loading-stats">
+            <div class="loading-stat">
+                <i class="fas fa-store"></i>
+                <span>Scanning 8+ stores for best deals</span>
+            </div>
+            <div class="loading-stat">
+                <i class="fas fa-chart-line"></i>
+                <span>Analyzing price trends & quality ratings</span>
+            </div>
+            <div class="loading-stat">
+                <i class="fas fa-bolt"></i>
+                <span>Calculating value scores in real-time</span>
+            </div>
+        </div>
+        
+        <div class="tips">
+            <h4>
+                <i class="fas fa-lightbulb"></i>
+                Pro Tip
+            </h4>
+            <p>Use price alerts to get notified when prices drop. You can save up to 35% by timing your purchase right!</p>
+        </div>
+    </div>
+
+    <script>
+        // Dynamic loading messages
+        const messages = [
+            "Initializing price comparison engine...",
+            "Connecting to store APIs...",
+            "Searching Amazon for the best deals...",
+            "Checking Flipkart prices and offers...",
+            "Scanning Myntra for fashion discounts...",
+            "Analyzing Meesho for budget options...",
+            "Comparing prices across all stores...",
+            "Calculating quality ratings and scores...",
+            "Analyzing delivery times and costs...",
+            "Generating personalized recommendations...",
+            "Finalizing the best deals for you..."
+        ];
+        
+        let messageIndex = 0;
+        const messageElement = document.getElementById('loadingMessage');
+        const progressBar = document.getElementById('progressBar');
+        const steps = document.querySelectorAll('.step');
+        
+        // Update message function
+        function updateMessage() {
+            messageElement.textContent = messages[messageIndex];
+            messageIndex = (messageIndex + 1) % messages.length;
+            
+            // Update progress
+            const progress = ((messageIndex / messages.length) * 100).toFixed(0);
+            progressBar.style.width = `${progress}%`;
+            
+            // Update steps
+            updateSteps(messageIndex);
+        }
+        
+        // Update steps
+        function updateSteps(index) {
+            steps.forEach((step, i) => {
+                step.classList.remove('active', 'complete');
+                
+                if (i < Math.floor(index / (messages.length / steps.length))) {
+                    step.classList.add('complete');
+                } else if (i === Math.floor(index / (messages.length / steps.length))) {
+                    step.classList.add('active');
+                }
+            });
+        }
+        
+        // Start message rotation
+        updateMessage();
+        const messageInterval = setInterval(updateMessage, 2000);
+        
+        // Auto redirect after 10 seconds (for demo)
+        setTimeout(() => {
+            clearInterval(messageInterval);
+            window.location.href = 'index.html?demo=true';
+        }, 10000);
+        
+        // Or redirect when progress reaches 100%
+        function checkRedirect() {
+            if (parseInt(progressBar.style.width) >= 100) {
+                clearInterval(messageInterval);
+                window.location.href = 'index.html?demo=true';
+            }
+        }
+        
+        // Check every second
+        setInterval(checkRedirect, 1000);
+    </script>
+</body>
+</html>

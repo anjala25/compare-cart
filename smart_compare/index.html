@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PriceWise | Compare Prices & Quality</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-container">
+        <div class="gradient-bg"></div>
+        <div class="floating-elements">
+            <div class="price-bubble" style="--delay: 0s; --color: #ff6b6b;">
+                <span class="price-icon">₹</span>
+                <span class="price-value">999</span>
+            </div>
+            <div class="price-bubble" style="--delay: 1s; --color: #4ecdc4;">
+                <span class="price-icon">₹</span>
+                <span class="price-value">1,499</span>
+            </div>
+            <div class="price-bubble" style="--delay: 2s; --color: #ffd166;">
+                <span class="price-icon">₹</span>
+                <span class="price-value">2,299</span>
+            </div>
+            <div class="price-bubble" style="--delay: 3s; --color: #06d6a0;">
+                <span class="price-icon">₹</span>
+                <span class="price-value">3,999</span>
+            </div>
+            <div class="quality-badge" style="--delay: 0.5s;">
+                <i class="fas fa-star"></i>
+                <span>Quality Score: 9.2</span>
+            </div>
+            <div class="savings-badge" style="--delay: 1.5s;">
+                <i class="fas fa-piggy-bank"></i>
+                <span>Save 42%</span>
+            </div>
+        </div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="glass-header">
+        <div class="container">
+            <div class="logo-wrapper">
+                <div class="logo">
+                    <div class="logo-icon animate__animated animate__pulse animate__infinite">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1 class="logo-title">Price<span class="highlight">Wise</span></h1>
+                        <p class="logo-subtitle">Smart Price & Quality Comparison</p>
+                    </div>
+                </div>
+                <div class="header-stats">
+                    <div class="stat">
+                        <i class="fas fa-store"></i>
+                        <span>8+ Stores</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-tags"></i>
+                        <span>1M+ Products</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-users"></i>
+                        <span>500K+ Users</span>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="main-nav">
+                <a href="#" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Price Trends</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-award"></i>
+                    <span>Best Deals</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-bell"></i>
+                    <span>Alerts</span>
+                </a>
+            </nav>
+            
+            <div class="user-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="notifications-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-count">3</span>
+                </button>
+                <button class="user-profile">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Login</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h2 class="hero-title animate__animated animate__fadeInUp">
+                        Find the <span class="gradient-text">Best Price</span> &
+                        <span class="gradient-text">Top Quality</span>
+                    </h2>
+                    <p class="hero-subtitle">
+                        Compare prices across Amazon, Flipkart, Meesho, Ajio and more.
+                        Get real-time price alerts and quality ratings.
+                    </p>
+                    
+                    <!-- Search Section -->
+                    <div class="search-section">
+                        <div class="search-container">
+                            <div class="search-box">
+                                <div class="search-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <input type="text" 
+                                       id="searchInput" 
+                                       class="search-input"
+                                       placeholder="Search for products (iPhone 15, Samsung TV, Nike Shoes...)"
+                                       autocomplete="off">
+                                <div class="search-actions">
+                                    <button class="search-btn camera-btn" title="Search by Image">
+                                        <i class="fas fa-camera"></i>
+                                    </button>
+                                    <button class="search-btn voice-btn" title="Voice Search">
+                                        <i class="fas fa-microphone"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Store Filters -->
+                            <div class="store-filters">
+                                <div class="filter-label">
+                                    <i class="fas fa-filter"></i>
+                                    Compare on:
+                                </div>
+                                <div class="store-buttons">
+                                    <button class="store-btn active" data-store="all">
+                                        <i class="fas fa-globe"></i>
+                                        All Stores
+                                    </button>
+                                    <button class="store-btn" data-store="amazon">
+                                        <i class="fab fa-amazon"></i>
+                                        Amazon
+                                    </button>
+                                    <button class="store-btn" data-store="flipkart">
+                                        <i class="fas fa-shopping-bag"></i>
+                                        Flipkart
+                                    </button>
+                                    <button class="store-btn" data-store="meesho">
+                                        <i class="fas fa-tshirt"></i>
+                                        Meesho
+                                    </button>
+                                    <button class="store-btn" data-store="ajio">
+                                        <i class="fas fa-gem"></i>
+                                        Ajio
+                                    </button>
+                                    <button class="store-btn" data-store="myntra">
+                                        <i class="fas fa-star"></i>
+                                        Myntra
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Category Quick Links -->
+                            <div class="category-tags">
+                                <span class="category-label">Popular Categories:</span>
+                                <button class="category-tag" data-category="electronics">
+                                    <i class="fas fa-mobile-alt"></i> Electronics
+                                </button>
+                                <button class="category-tag" data-category="fashion">
+                                    <i class="fas fa-tshirt"></i> Fashion
+                                </button>
+                                <button class="category-tag" data-category="home">
+                                    <i class="fas fa-home"></i> Home & Kitchen
+                                </button>
+                                <button class="category-tag" data-category="beauty">
+                                    <i class="fas fa-spa"></i> Beauty
+                                </button>
+                                <button class="category-tag" data-category="sports">
+                                    <i class="fas fa-dumbbell"></i> Sports
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="action-buttons">
+                            <button class="btn-primary btn-search" id="searchButton">
+                                <span class="btn-content">
+                                    <i class="fas fa-bolt"></i>
+                                    Smart Compare
+                                </span>
+                                <div class="btn-shine"></div>
+                            </button>
+                            <button class="btn-secondary" id="trendsButton">
+                                <i class="fas fa-chart-line"></i>
+                                View Price Trends
+                            </button>
+                            <button class="btn-outline" id="dealsButton">
+                                <i class="fas fa-fire"></i>
+                                Today's Hot Deals
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats Cards -->
+                    <div class="stats-cards">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-rupee-sign"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>₹2.5Cr+</h3>
+                                <p>Total Savings</p>
+                            </div>
+                            <div class="stat-graph">
+                                <div class="graph-bar" style="--height: 80%;"></div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Avg 32%</h3>
+                                <p>Price Difference</p>
+                            </div>
+                            <div class="stat-graph">
+                                <div class="graph-bar" style="--height: 65%;"></div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>4.2/5</h3>
+                                <p>Quality Rating</p>
+                            </div>
+                            <div class="stat-graph">
+                                <div class="graph-bar" style="--height: 85%;"></div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Real-time</h3>
+                                <p>Price Updates</p>
+                            </div>
+                            <div class="stat-graph">
+                                <div class="graph-bar" style="--height: 95%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-bar"></i> Comparison Results</h2>
+                    <div class="results-controls">
+                        <button class="sort-btn active" data-sort="price">
+                            <i class="fas fa-sort-amount-down"></i> Lowest Price
+                        </button>
+                        <button class="sort-btn" data-sort="quality">
+                            <i class="fas fa-star"></i> Best Quality
+                        </button>
+                        <button class="sort-btn" data-sort="value">
+                            <i class="fas fa-balance-scale"></i> Best Value
+                        </button>
+                        <button class="filter-btn">
+                            <i class="fas fa-sliders-h"></i> Filters
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="results-container" id="resultsContainer">
+                    <!-- Results will be loaded here -->
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-search-dollar"></i>
+                        </div>
+                        <h3>Ready to Compare?</h3>
+                        <p>Search for any product to compare prices and quality across top stores</p>
+                        <div class="example-searches">
+                            <button class="example-btn" data-search="iPhone 15">
+                                <i class="fas fa-mobile-alt"></i> iPhone 15
+                            </button>
+                            <button class="example-btn" data-search="Nike Shoes">
+                                <i class="fas fa-shoe-prints"></i> Nike Shoes
+                            </button>
+                            <button class="example-btn" data-search="Samsung TV">
+                                <i class="fas fa-tv"></i> Samsung TV
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Loading Screen -->
+            <div class="loading-screen" id="loadingScreen">
+                <div class="loading-content">
+                    <div class="loader">
+                        <div class="coin-spinner">
+                            <div class="coin-front">
+                                <i class="fas fa-rupee-sign"></i>
+                            </div>
+                            <div class="coin-back">
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="loading-text">
+                            <h3>Scanning Prices...</h3>
+                            <p id="loadingMessage">Searching across 8+ stores for best deals</p>
+                            <div class="progress-container">
+                                <div class="progress-bar" id="progressBar"></div>
+                                <div class="progress-steps">
+                                    <span class="step active">Searching</span>
+                                    <span class="step">Comparing</span>
+                                    <span class="step">Analyzing</span>
+                                    <span class="step">Ranking</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="loading-stats">
+                        <div class="loading-stat">
+                            <i class="fas fa-store"></i>
+                            <span>Checking Amazon...</span>
+                        </div>
+                        <div class="loading-stat">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span>Checking Flipkart...</span>
+                        </div>
+                        <div class="loading-stat">
+                            <i class="fas fa-tshirt"></i>
+                            <span>Checking Meesho...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-balance-scale"></i>
+                        <div>
+                            <h3>PriceWise</h3>
+                            <p>Smart Shopping Companion</p>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Compare prices, check quality ratings, and save money on every purchase.
+                        Your smart shopping assistant.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Features</h4>
+                        <a href="#">Price Comparison</a>
+                        <a href="#">Quality Ratings</a>
+                        <a href="#">Price Alerts</a>
+                        <a href="#">Deals & Coupons</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Stores</h4>
+                        <a href="#">Amazon</a>
+                        <a href="#">Flipkart</a>
+                        <a href="#">Meesho</a>
+                        <a href="#">Ajio</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Support</h4>
+                        <a href="#">Help Center</a>
+                        <a href="#">Contact Us</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+                
+                <div class="newsletter">
+                    <h4>Price Alerts</h4>
+                    <p>Get notified when prices drop</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email">
+                        <button class="subscribe-btn">
+                            <i class="fas fa-bell"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2024 PriceWise. All prices in INR. Data updated in real-time.</p>
+                <div class="footer-badges">
+                    <span class="badge">
+                        <i class="fas fa-shield-alt"></i> Secure
+                    </span>
+                    <span class="badge">
+                        <i class="fas fa-bolt"></i> Real-time
+                    </span>
+                    <span class="badge">
+                        <i class="fas fa-check-circle"></i> Verified
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+    <script src="products.js"></script>
+</body>
+</html>
